@@ -31,7 +31,14 @@
         // Basic database storage methods
         function save()
         {
-
+            try {
+                $GLOBALS['DB']->exec("INSERT INTO authors (name) VALUES (
+                    '{$this->getName()}'
+                    );");
+                $this->id = $GLOBALS['DB']->lastInsertId();
+            } catch (PDOException $e) {
+                echo "There was an error: " . $e->getMessage();
+            }
         }
 
         function delete()
@@ -67,12 +74,25 @@
 
         static function deleteAll()
         {
-
+            $GLOBALS['DB']->exec("DELETE FROM authors;");
+            $GLOBALS['DB']->exec("DELETE FROM authorships;");
         }
 
         static function getAll()
         {
-
+            try {
+                $returned_authors = $GLOBALS['DB']->query("SELECT * FROM authors;");
+            } catch (PDOException $e) {
+                echo "There was an error: " . $e->getMessage();
+            }
+            $all_authors = array();
+            foreach ($returned_authors as $author) {
+                $name = $author['name'];
+                $id = $author['id'];
+                $new_author = new Author($name, $id);
+                array_push($all_authors, $new_author);
+            }
+            return $all_authors;
         }
 
 
