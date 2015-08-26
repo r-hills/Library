@@ -75,6 +75,7 @@
 
         }
 
+        // Doesn't need any input parameters because a copy just needs this book id
         function addCopy ()
         {
 
