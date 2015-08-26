@@ -51,6 +51,11 @@
         {
             $GLOBALS['DB']->exec("DELETE FROM books WHERE id = {$this->getId()};");
             $GLOBALS['DB']->exec("DELETE FROM authorships WHERE book_id = {$this->getId()};");
+
+            // If we delete this book, should we also delete any checkouts of copies of it?
+            // This would involve a join delete statement of some kind...
+            // And it would need to happen before deleting copies. So, right here.
+
             $GLOBALS['DB']->exec("DELETE FROM copies WHERE book_id = {$this->getId()};");
         }
 
@@ -102,7 +107,6 @@
 
         }
 
-        // Doesn't need any input parameters because a copy just needs this book id
         function addCopies ($quantity)
         {
             // Add $quantity copies of the current book to the copies table.
@@ -129,8 +133,9 @@
         static function deleteAll ()
         {
             $GLOBALS['DB']->exec("DELETE FROM books;");
-            // $GLOBALS['DB']->exec("DELETE FROM authorships;");
-            // $GLOBALS['DB']->exec("DELETE FROM copies;");
+            $GLOBALS['DB']->exec("DELETE FROM authorships;");
+            $GLOBALS['DB']->exec("DELETE FROM copies;");
+
         }
 
         static function getAll ()

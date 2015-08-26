@@ -5,8 +5,8 @@
     * @backupStaticAttributes disabled
     */
     require_once "src/Book.php";
-    //require_once "src/Author.php";
-    //require_once "src/Patron.php";
+    require_once "src/Author.php";
+    require_once "src/Patron.php";
 
     $server = 'mysql:host=localhost;dbname=library_test';
     $username = 'root';
@@ -18,8 +18,8 @@
         protected function tearDown()
         {
             Book::deleteAll();
-            // Author::deleteAll();
-            // Patron::deleteAll();
+            Author::deleteAll();
+            Patron::deleteAll();
         }
 
         function test_getTitle()

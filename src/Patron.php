@@ -91,8 +91,9 @@
             $this->setEmail($new_email);
         }
 
-        // Methods involving other tables
 
+
+        // Methods involving other tables
         function addCheckout ()
         {
 
@@ -102,6 +103,8 @@
         {
 
         }
+
+
 
         // Static methods
         static function find ($search_id)

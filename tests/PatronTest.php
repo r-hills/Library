@@ -4,9 +4,10 @@
     * @backupGlobals disabled
     * @backupStaticAttributes disabled
     */
-    //require_once "src/Patron.php";
+
+    require_once "src/Book.php";
+    require_once "src/Author.php";
     require_once "src/Patron.php";
-    //require_once "src/Patron.php";
 
     $server = 'mysql:host=localhost;dbname=library_test';
     $username = 'root';
@@ -17,9 +18,9 @@
     {
         protected function tearDown()
         {
-            // Patron::deleteAll();
             Patron::deleteAll();
-            // Patron::deleteAll();
+            Patron::deleteAll();
+            Patron::deleteAll();
         }
 
         function test_getName()
@@ -190,6 +191,16 @@
             //Assert
             $this->assertEquals($test_patron, $result);
         }
+
+        // function test_addCheckout()
+        // {
+        //
+        // }
+        //
+        // function test_getCheckouts()
+        // {
+        //
+        // }
 
 
 
