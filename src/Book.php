@@ -62,12 +62,30 @@
         // Methods involving other tables
         function getAuthors ()
         {
+            $authors_query = $GLOBALS['DB']->query(
+                "SELECT authors.* FROM
+                    books JOIN authorships ON (books.id  = authorships.book_id)
+                          JOIN authors     ON (authorships.author_id = authors.id)
+                 WHERE books.id = {$this->getId()};"
+            );
 
+            $matching_authors = array();
+            foreach ($authors_query as $author) {
+                $name = $author['name'];
+                $id = $author['id'];
+                $new_author = new Author($name, $id);
+                array_push($matching_authors, $new_author);
+            }
+            return $matching_authors;
         }
 
         function addAuthor ($new_author)
         {
+            $GLOBALS['DB']->exec("INSERT INTO authorships (book_id, author_id) VALUES(
+                {$this->getId()},
+                {$new_author->getId()}
 
+            );");
         }
 
         function getCopies ()
