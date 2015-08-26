@@ -21,5 +21,18 @@
             // Author::deleteAll();
             // Patron::deleteAll();
         }
+
+        function test_getTitle()
+        {
+            //Arrange
+            $title = "America";
+            $test_book = new Book($title);
+
+            //Act
+            $result = $test_book->getTitle();
+
+            //Assert
+            $this->assertEquals($title, $result);
+        }
     }
 ?>
