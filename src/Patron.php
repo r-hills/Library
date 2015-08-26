@@ -55,30 +55,49 @@
         // Basic database storage methods
         function save ()
         {
-
+            try {
+                $GLOBALS['DB']->exec("INSERT INTO patrons (name,phone,email) VALUES (
+                    '{$this->getName()}',
+                    '{$this->getPhone()}',
+                    '{$this->getEmail()}'
+                    );");
+                $this->id = $GLOBALS['DB']->lastInsertId();
+            } catch (PDOException $e) {
+                echo "Error in Book save function: " . $e->getMessage();
+            }
         }
 
         function delete ()
         {
-
+            $GLOBALS['DB']->exec("DELETE FROM patrons WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM checkouts WHERE patron_id = {$this->getId()};");
         }
 
-        function updateName ()
+        function updateName ($new_name)
         {
-
+            $GLOBALS['DB']->exec("UPDATE patrons SET name = '{$new_name}' WHERE id = {$this->getId()};");
+            $this->setName($new_name);
         }
 
-        function updatePhone ()
+        function updatePhone ($new_phone)
         {
-
+            $GLOBALS['DB']->exec("UPDATE patrons SET phone = '{$new_phone}' WHERE id = {$this->getId()};");
+            $this->setPhone($new_phone);
         }
 
-        function updateEmail ()
+        function updateEmail ($new_email)
         {
-
+            $GLOBALS['DB']->exec("UPDATE patrons SET email = '{$new_email}' WHERE id = {$this->getId()};");
+            $this->setEmail($new_email);
         }
 
         // Methods involving other tables
+
+        function addCheckout ()
+        {
+
+        }
+
         function getCheckouts ()
         {
 
@@ -100,7 +119,7 @@
         static function deleteAll ()
         {
             $GLOBALS['DB']->exec("DELETE FROM patrons;");
-            // $GLOBALS['DB']->exec("DELETE FROM checkouts;");
+            $GLOBALS['DB']->exec("DELETE FROM checkouts;");
         }
 
         static function getAll ()

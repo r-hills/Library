@@ -133,9 +133,9 @@
             //Act
             $new_name = "Billy Worthington";
             $test_patron->updateName($new_name);
-            $result = Patron::getAll();
 
             //Assert
+            $result = Patron::getAll();
             $this->assertEquals($new_name, $result[0]->getName());
         }
 
@@ -151,9 +151,9 @@
             //Act
             $new_phone = "888";
             $test_patron->updatePhone($new_phone);
-            $result = Patron::getAll();
 
             //Assert
+            $result = Patron::getAll();
             $this->assertEquals($new_phone, $result[0]->getPhone());
         }
 
@@ -169,9 +169,9 @@
             //Act
             $new_email = "hi@bye.com";
             $test_patron->updateEmail($new_email);
-            $result = Patron::getAll();
 
             //Assert
+            $result = Patron::getAll();
             $this->assertEquals($new_email, $result[0]->getEmail());
         }
 
