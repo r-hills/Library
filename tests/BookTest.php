@@ -79,11 +79,12 @@
             $test_book2->save();
 
             //Act
-            $result = Book::deleteAll();
+            Book::deleteAll();
+            $result = Book::getAll();
 
             //Assert
             $this->assertEquals([], $result);
         }
-        
+
     }
 ?>
