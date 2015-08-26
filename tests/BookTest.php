@@ -105,5 +105,21 @@
             $this->assertEquals([$test_book2], $result);
         }
 
+        function test_updateTitle()
+        {
+            //Arrange
+            $title = "History of whatever";
+            $test_book = new Book($title);
+            $test_book->save();
+
+            //Act
+            $new_title = "Future of him";
+            $test_book->updateTitle($new_title);
+
+            //Assert
+            $result = Book::getAll();
+            $this->assertEquals($new_title, $result[0]->getTitle());
+        }
+
     }
 ?>
