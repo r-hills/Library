@@ -35,10 +35,13 @@
         function save ()
         {
             try {
-                $GLOBALS['DB']->exec("INSERT INTO books (title) VALUES (
-                    '{$this->getTitle()}'
-                    );");
+                $GLOBALS['DB']->exec("INSERT INTO books (title) VALUES ('{$this->getTitle()}');");
                 $this->id = $GLOBALS['DB']->lastInsertId();
+
+                // Initialize a first copy every time we save a book
+                $GLOBALS['DB']->exec("INSERT INTO copies (book_id) VALUES ({$this->getId()});");
+
+
             } catch (PDOException $e) {
                 echo "Error in Book save function: " . $e->getMessage();
             }
@@ -84,19 +87,28 @@
             $GLOBALS['DB']->exec("INSERT INTO authorships (book_id, author_id) VALUES(
                 {$this->getId()},
                 {$new_author->getId()}
-
             );");
         }
 
-        function getCopies ()
+        function getCopyIds ()
         {
+            $copies_query = $GLOBALS['DB']->query("SELECT * FROM copies WHERE book_id = {$this->getId()};");
+
+            $copy_ids = array();
+            foreach($copies_query as $copy) {
+                array_push($copy_ids, $copy['id']);
+            }
+            return $copy_ids;
 
         }
 
         // Doesn't need any input parameters because a copy just needs this book id
-        function addCopy ()
+        function addCopies ($quantity)
         {
-
+            // Add $quantity copies of the current book to the copies table.
+            for ($currentCopy = 1; $currentCopy <= $quantity; $currentCopy++) {
+                $GLOBALS['DB']->exec("INSERT INTO copies (book_id) VALUES ({$this->getId()});");
+            }
         }
 
 

@@ -182,6 +182,37 @@
             $this->assertEquals([$test_author, $test_author2], $result);
         }
 
+        function test_addCopies()
+        {
+            //Arrange
+            $title = "dog book";
+            $test_book = new Book($title);
+            $test_book->save();
+
+            //Act
+            //starts with 1 copy, add one more
+            $test_book->addCopies(1);
+
+            //Assert
+            $result = $test_book->getCopyIds();
+            $this->assertEquals(2, sizeof($result));
+        }
+
+        function test_getCopyIds()
+        {
+            //Arrange
+            $title = "dog book";
+            $test_book = new Book($title);
+            $test_book->save();
+
+            //Act
+            //starts with 1 copy, add 10 more
+            $test_book->addCopies(10);
+
+            //Assert
+            $result = $test_book->getCopyIds();
+            $this->assertEquals(11, sizeof($result));
+        }
 
 
 
