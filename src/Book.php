@@ -11,6 +11,8 @@
             $this->id = $id;
         }
 
+
+        // Getters and Setters
         function setTitle ($new_title)
         {
             $this->title = $new_title;
@@ -26,6 +28,10 @@
             return $this->id;
         }
 
+
+
+
+        // Basic database storage methods
         function save ()
         {
             try {
@@ -48,6 +54,9 @@
 
         }
 
+
+
+        // Methods involving other tables
         function getAuthors ()
         {
 
@@ -68,6 +77,9 @@
 
         }
 
+
+
+        // Static methods
         static function find ($search_id)
         {
 

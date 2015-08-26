@@ -86,5 +86,24 @@
             $this->assertEquals([], $result);
         }
 
+        function test_delete()
+        {
+            //Arrange
+            $title = "History of whatever";
+            $test_book = new Book($title);
+            $test_book->save();
+
+            $title2 = "History of nothing";
+            $test_book2 = new Book($title2);
+            $test_book2->save();
+
+            //Act
+            $test_book->delete();
+            $result = Book::getAll();
+
+            //Assert
+            $this->assertEquals([$test_book2], $result);
+        }
+
     }
 ?>
