@@ -129,10 +129,9 @@
             $test_author->save();
 
             //Act
-            Author::find($test_author->getId());
+            $result = Author::find($test_author->getId());
 
             //Assert
-            $result = Author::getAll();
             $this->assertEquals($test_author, $result);
         }
 

@@ -43,12 +43,14 @@
 
         function delete()
         {
-
+            $GLOBALS['DB']->exec("DELETE FROM authors WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM authorships WHERE author_id = {$this->getId()};");
         }
 
         function updateName($new_name)
         {
-
+            $GLOBALS['DB']->exec("UPDATE authors SET name = '{$new_name}' WHERE id = {$this->getId()};");
+            $this->setName($new_name);
         }
 
 
@@ -69,7 +71,14 @@
         // Static methods
         static function find($search_id)
         {
-
+            $found_author = null;
+            $authors = Author::getAll();
+            foreach ($authors as $author) {
+                if ($author->getId() == $search_id) {
+                    $found_author = $author;
+                }
+            }
+            return $found_author;
         }
 
         static function deleteAll()
