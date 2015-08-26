@@ -121,5 +121,25 @@
             $this->assertEquals($new_title, $result[0]->getTitle());
         }
 
+        function test_find()
+        {
+            //Arrange
+            $title = "History of whatever";
+            $test_book = new Book($title);
+            $test_book->save();
+
+            $title2 = "History of nothing";
+            $test_book2 = new Book($title2);
+            $test_book2->save();
+
+            //Act
+            $result = Book::find($test_book2->getId());
+
+            //Assert
+            $this->assertEquals($test_book2, $result);
+        }
+
+
+
     }
 ?>

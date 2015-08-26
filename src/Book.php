@@ -85,7 +85,14 @@
         // Static methods
         static function find ($search_id)
         {
-
+            $found_book = null;
+            $books = Book::getAll();
+            foreach ($books as $book) {
+                if ($book->getId() == $search_id) {
+                    $found_book = $book;
+                }
+            }
+            return $found_book;
         }
 
         static function deleteAll ()
