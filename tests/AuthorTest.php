@@ -4,7 +4,7 @@
     * @backupGlobals disabled
     * @backupStaticAttributes disabled
     */
-    //require_once "src/Book.php";
+    //require_once "src/Author.php";
     require_once "src/Author.php";
     //require_once "src/Patron.php";
 
@@ -17,7 +17,7 @@
     {
         protected function tearDown()
         {
-            // Book::deleteAll();
+            // Author::deleteAll();
             Author::deleteAll();
             // Patron::deleteAll();
         }
@@ -34,6 +34,59 @@
             //Assert
             $this->assertEquals($name, $result);
         }
+
+        function test_save()
+        {
+            //Arrange
+            $name = "Bob";
+            $test_author = new Author($name);
+
+            //Act
+            $test_author->save();
+
+            //Assert
+            $result = Author::getAll();
+            $this->assertEquals($test_author, $result[0]);
+        }
+
+        function test_getAll()
+        {
+            //Arrange
+            $name = "Bob";
+            $test_author = new Author($name);
+            $test_author->save();
+
+            $name2 = "Rob";
+            $test_author2 = new Author($name2);
+            $test_author2->save();
+
+            //Act
+            $result = Author::getAll();
+
+            //Assert
+            $this->assertEquals([$test_author, $test_author2], $result);
+        }
+
+        function test_deleteAll()
+        {
+            //Arrange
+            $name = "Bob";
+            $test_author = new Author($name);
+            $test_author->save();
+
+            $name2 = "Billy Bob";
+            $test_author2 = new Author($name2);
+            $test_author2->save();
+
+            //Act
+            Author::deleteAll();
+            $result = Author::getAll();
+
+            //Assert
+            $this->assertEquals([], $result);
+        }
+
+
 
     }
 
