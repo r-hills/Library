@@ -4,9 +4,10 @@
     * @backupGlobals disabled
     * @backupStaticAttributes disabled
     */
-    //require_once "src/Author.php";
+    require_once "src/Book.php";
     require_once "src/Author.php";
-    //require_once "src/Patron.php";
+    require_once "src/Patron.php";
+    //require_once "src/Checkout.php";
 
     $server = 'mysql:host=localhost;dbname=library_test';
     $username = 'root';
@@ -17,9 +18,9 @@
     {
         protected function tearDown()
         {
-            // Author::deleteAll();
+            Book::deleteAll();
             Author::deleteAll();
-            // Patron::deleteAll();
+            Patron::deleteAll();
         }
 
         function test_getName()
@@ -157,7 +158,6 @@
 
         function test_getBooks()
         {
-            //Arrange
             //Arrange
             $name = "Bob";
             $test_author = new Author($name);

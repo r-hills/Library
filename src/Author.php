@@ -58,15 +58,31 @@
         // Methods involving other tables
         function getBooks()
         {
+            $books_query = $GLOBALS['DB']->query(
+                "SELECT books.* FROM
+                    authors JOIN authorships ON (authors.id = authorships.author_id)
+                            JOIN books       ON (authorships.book_id = books.id)
+                WHERE authors.id = {$this->getId()};"
+            );
+
+            $matching_books = array();
+            foreach($books_query as $book) {
+                $title = $book['title'];
+                $id = $book['id'];
+                $new_book = new Book($title, $id);
+                array_push($matching_books, $new_book);
+            }
+            return $matching_books;
 
         }
 
         function addBook($new_book)
         {
-
+            $GLOBALS['DB']->exec("INSERT INTO authorships (book_id, author_id) VALUES(
+                {$new_book->getId()},
+                {$this->getId()}
+            );");
         }
-
-
 
         // Static methods
         static function find($search_id)
