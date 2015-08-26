@@ -10,19 +10,20 @@
             $this->title = $title;
             $this->id = $id;
         }
+
         function setTitle ($new_title)
         {
-
+            $this->title = $new_title;
         }
 
         function getTitle ()
         {
-
+            return $this->title;
         }
 
         function getId ()
         {
-
+            return $this->id;
         }
 
         function save ()
