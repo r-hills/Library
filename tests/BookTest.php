@@ -34,5 +34,56 @@
             //Assert
             $this->assertEquals($title, $result);
         }
+
+        function test_save()
+        {
+            //Arrange
+            $title = "History of whatever";
+            $test_book = new Book($title);
+
+            //Act
+            $test_book->save();
+
+            //Assert
+            $result = Book::getAll();
+            $this->assertEquals($test_book, $result[0]);
+        }
+
+        function test_getAll()
+        {
+            //Arrange
+            $title = "History of whatever";
+            $test_book = new Book($title);
+            $test_book->save();
+
+            $title2 = "History of nothing";
+            $test_book2 = new Book($title2);
+            $test_book2->save();
+
+            //Act
+            $result = Book::getAll();
+
+            //Assert
+            $this->assertEquals([$test_book, $test_book2], $result);
+        }
+
+        function test_deleteAll()
+        {
+            //Arrange
+            $title = "History of whatever";
+            $test_book = new Book($title);
+            $test_book->save();
+
+            $title2 = "History of nothing";
+            $test_book2 = new Book($title2);
+            $test_book2->save();
+
+            //Act
+            $result = Book::deleteAll();
+
+            //Assert
+            $this->assertEquals([], $result);
+        }
+        
     }
 ?>
