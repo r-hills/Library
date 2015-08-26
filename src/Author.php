@@ -5,7 +5,7 @@
         private $title;
         private $name;
 
-        function __construct($title, $id = null)
+        function __construct($name, $id = null)
         {
             $this->name = $name;
             $this->id = $id;
