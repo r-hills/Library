@@ -22,7 +22,7 @@
                 <p>Here are all your books</p>
                 <ul>
                     {% for book in books %}
-                        <li>{{ book.getTitle }} by
+                        <li><a href="/book/{{ book.getId }}/edit">{{ book.getTitle }}</a> by
                             {% set book_authors = book.getAuthors %}
                             {% for author in book_authors %}
                                 {{ author.getName }}

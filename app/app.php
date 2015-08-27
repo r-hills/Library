@@ -26,13 +26,13 @@
 
     });
 
-    //route to librarian landing page that displays all books, a form
+    //librarian landing page that displays all books, a form
     //to add books, search, update, and delete books.
     $app->get("/librarian", function() use ($app) {
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
     });
 
-    //route adds book to inventory on same page
+    //adds book to inventory on same page
     $app->post("/add_book", function() use ($app) {
         $book = new Book(preg_quote($_POST['title'], "'"));
         $book->save();
@@ -46,6 +46,12 @@
     $app->post("/delete_all_books", function() use ($app) {
         Book::deleteAll();
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
+    });
+
+    //goes to an update page for a book
+    $app->get("/book/{id}/edit", function($id) use ($app) {
+        $book = Book::find($id);
+        return $app['twig']->render('book_edit.html.twig', array('book' => $book));
     });
 
     return $app;

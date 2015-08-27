@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+        <title>Edit Book</title>
+    </head>
+    <body>
+        <div class='container'>
+            <h1>Edit Book</h1>
+            <p>Update title for {{ book.getTitle }}</p>
+
+            <form action="/book/{{ book.getId }}" method="post">
+                <input name="_method" type="hidden" value="patch">
+                <label for="title">New title:</label>
+                <input id="title" name="title" type="text">
+
+                <button type="submit" class="btn-success">Update</button>
+            </form>
+            <p>Second thoughts? Go <a href="/librarian">away</a></p>    
+        </div>
+    </body>
+</html>
