@@ -15,7 +15,11 @@
 
                 <button type="submit" class="btn-success">Update</button>
             </form>
-            <p>Second thoughts? Go <a href="/librarian">away</a></p>    
+            <form action="/book/{{ book.getId }}/delete" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <button type="submit" class="btn-danger">Delete Book</button>
+            </form>
+            <p>Second thoughts? Go <a href="/librarian">away</a></p>
         </div>
     </body>
 </html>

@@ -61,5 +61,12 @@
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
     });
 
+    //delete an individual book and return to the librarian route
+    $app->delete("/book/{id}/delete", function($id) use ($app) {
+        $book = Book::find($id);
+        $book->delete();
+        return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
+    });
+
     return $app;
 ?>
