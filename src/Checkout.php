@@ -9,9 +9,9 @@
 
         function __construct($patron_id, $copy_id, $date, $id = null)
         {
-            $this->patron_id = $patron_id;
-            $this->copy_id = $copy_id;
-            $this->date = $date;
+            $this->patron_id = (int) $patron_id;
+            $this->copy_id = (int) $copy_id;
+            $this->date = (string) $date;
             $this->id = $id;
         }
 
@@ -58,17 +58,23 @@
         function save ()
         {
             try {
-                $GLOBALS['DB']->exec("INSERT INTO checkouts (patron_id, copy_id, date) VALUES ({$this->getPatronId()}, {$this->getCopyId()}, {$this->getDate()});");
+                // date may be a protected keyword in MySQL/PHP... this isn't working right now
+                $GLOBALS['DB']->exec("INSERT INTO checkouts (patron_id, copy_id, date) VALUES (
+                    {$this->getPatronId()},
+                    {$this->getCopyId()},
+                    '{$this->getDate()}');
+                ");
                 $this->id = $GLOBALS['DB']->lastInsertId();
             } catch (PDOException $e) {
                 echo "There was an error: " . $e->getMessage();
             }
         }
 
-        function delete ()
-        {
-            $GLOBALS['DB']->exec("DELETE FROM checkouts WHERE id = {$this->getId()};");
-        }
+        // Why would we delete one checkout? We want to keep the history of all checkouts FOREVER
+        // function delete ()
+        // {
+        //     $GLOBALS['DB']->exec("DELETE FROM checkouts WHERE id = {$this->getId()};");
+        // }
 
         function updatePatronId ($new_patron_id)
         {
@@ -90,12 +96,26 @@
 
         static function deleteAll ()
         {
-            
+            $GLOBALS['DB']->exec("DELETE FROM checkouts;");
         }
 
         static function getAll ()
         {
-
+            try {
+                $checkouts_query = $GLOBALS['DB']->query("SELECT * FROM checkouts;");
+            } catch (PDOException $e) {
+                echo "There was an error: " . $e->getMessage();
+            }
+            $all_checkouts = array();
+            foreach($checkouts_query as $checkout) {
+                $new_checkout = new Checkout(
+                    $checkout['patron_id'],
+                    $checkout['copy_id'],
+                    $checkout['date']
+                );
+                array_push($all_checkouts, $new_checkout);
+            }
+            return $all_checkouts;
         }
 
         static function find ($search_id)
