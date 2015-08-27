@@ -46,8 +46,8 @@
             // Make a Checkout
             $patron_id = $test_patron->getId();
             $copy_id = 1;
-            $date = "2015-08-09";
-            $test_checkout = new Checkout($patron_id, $copy_id, $date);
+            $due_date = "2015-08-09";
+            $test_checkout = new Checkout($patron_id, $copy_id, $due_date);
 
             //Act
             $result = $test_checkout->getPatronId();
@@ -73,8 +73,8 @@
             // Make a Checkout
             $patron_id = $test_patron->getId();
             $copy_id = 1;
-            $date = "2015-08-09";
-            $test_checkout = new Checkout($patron_id, $copy_id, $date);
+            $due_date = "2015-08-09";
+            $test_checkout = new Checkout($patron_id, $copy_id, $due_date);
 
             //Act
             $test_checkout->save();
@@ -101,14 +101,14 @@
             // Make a Checkout and save
             $patron_id = $test_patron->getId();
             $copy_id = 1;
-            $date = "2015-08-09";
-            $test_checkout = new Checkout($patron_id, $copy_id, $date);
+            $due_date = "2015-08-09";
+            $test_checkout = new Checkout($patron_id, $copy_id, $due_date);
             $test_checkout->save();
 
             // Make a 2nd Checkout and save under the same patron
             $copy_id2 = 1;
-            $date2 = "2015-08-09";
-            $test_checkout2 = new Checkout($patron_id, $copy_id2, $date2);
+            $due_date2 = "2015-08-09";
+            $test_checkout2 = new Checkout($patron_id, $copy_id2, $due_date2);
             $test_checkout2->save();
 
             //Act
@@ -124,7 +124,7 @@
 
         // updateCopyId test
 
-        // updateDate test
+        // updateDueDate test
 
 
     }
