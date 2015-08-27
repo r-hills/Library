@@ -10,10 +10,10 @@
 
             <form action="/librarian" method="post">
                 <label for="title">Book title</label>
-                <input id="title" name="title" type="text">
+                <input id="title" name="title" type="text" required>
 
                 <label for="author">Book author:</label>
-                <input id="author" name="author" type="text">
+                <input id="author" name="author" type="text" required>
 
                 <button type="submit">Add book</button>
             </form>
@@ -22,7 +22,12 @@
                 <p>Here are all your books</p>
                 <ul>
                     {% for book in books %}
-                        <li>{{ book.getTitle }} by {{ book.getAuthors }}</li>
+                        <li>{{ book.getTitle }} by
+                            {% set book_authors = book.getAuthors %}
+                            {% for author in book_authors %}
+                                {{ author }}
+                            {% endfor %}
+                        </li>
                     {% endfor %}
                 </ul>
             {% else %}
