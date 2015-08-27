@@ -186,9 +186,72 @@
             $this->assertEquals($new_patron_id, $result);
         }
 
-        // updateCopyId test
+        // can't really test this until we have getNextCopy
 
-        // updateDueDate test
+        // function test_updateCopyId()
+        // {
+        //     // for now, feed a dummy copy_id just for testing
+        //     // later, we will need to use getNextCopy() in Book class
+        //     // to get a copy for a given book
+        //
+        //     //Arrange
+        //     // Make a Patron
+        //     $name = "Dan Brown";
+        //     $phone = "3";
+        //     $email = "a@a.com";
+        //     $test_patron = new Patron($name, $phone, $email);
+        //     $test_patron->save();
+        //
+        //     // Make a Checkout and save
+        //     $patron_id = $test_patron->getId();
+        //     $copy_id = 1;
+        //     $due_date = "2015-08-09";
+        //     $test_checkout = new Checkout($patron_id, $copy_id, $due_date);
+        //     $test_checkout->save();
+        //
+        //     //Make a second Patron
+        //     $name2 = "Vaughn Brown";
+        //     $phone2 = "4";
+        //     $email2 = "vaughn.brown@jla.com";
+        //     $test_patron2 = new Patron($name2, $phone2, $email2);
+        //     $test_patron2->save();
+        //
+        //     $new_patron_id = $test_patron2->getId();
+        //
+        //     //Act
+        //     $test_checkout->updatePatronId($new_patron_id);
+        //
+        //     //Assert
+        //     $result = $test_checkout->getPatronId();
+        //     $this->assertEquals($new_patron_id, $result);
+        // }
+
+        function test_updateDueDate()
+        {
+            //Arrange
+            // Make a Patron
+            $name = "Dan Brown";
+            $phone = "3";
+            $email = "a@a.com";
+            $test_patron = new Patron($name, $phone, $email);
+            $test_patron->save();
+
+            // Make a Checkout and save
+            $patron_id = $test_patron->getId();
+            $copy_id = 1;
+            $due_date = "2015-08-09";
+            $test_checkout = new Checkout($patron_id, $copy_id, $due_date);
+            $test_checkout->save();
+
+            $new_due_date = "2015-08-27";
+
+            //Act
+            $test_checkout->updateDueDate($new_due_date);
+
+            //Assert
+            $result = $test_checkout->getDueDate();
+            $this->assertEquals($new_due_date, $result);
+        }
 
 
     }
