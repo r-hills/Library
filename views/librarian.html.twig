@@ -6,6 +6,15 @@
     <body>
         <div class='container'>
             <h1>Librarian Homepage</h1>
+            <p>Search the Peterson Private Collection</p>
+
+            <form action="/book_title_search_results" method="post">
+                <label for="title">Book Title</label>
+                <input id="title" name="title" type="text">
+
+                <button type="submit">Search</button>
+            </form>
+
             <p>Add a book to the Peterson Private Collection<p>
 
             <form action="/add_book" method="post">

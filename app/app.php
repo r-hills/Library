@@ -68,5 +68,18 @@
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
     });
 
+    //displays results of user search by book title
+    $app->post("/book_title_search_results", function() use ($app) {
+        $user_query = $_POST['title'];
+        $all_books = Book::getAll();
+        $matching_books = array();
+        foreach ($all_books as $book) {
+            if (strpos(strtolower($book->getTitle()), strtolower($user_query)) !== false)  {
+                array_push($matching_books, $book);
+            }
+        }
+        return $app['twig']->render("book_search_results.html.twig", array('results' => $matching_books));
+    });
+
     return $app;
 ?>

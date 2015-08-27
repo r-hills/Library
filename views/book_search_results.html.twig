@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+        <title>Book Search Results</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Here's those dumb books you wanted or whatever</h1>
+
+            {% for book in results %}
+                <ul>
+                    <li>{{ book.getTitle }}</li>
+                </ul>
+            {% endfor %}
+        </div>
+    </body>
+</html>
