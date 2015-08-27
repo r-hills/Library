@@ -118,7 +118,39 @@
             $this->assertEquals([$test_checkout, $test_checkout2], $result);
         }
 
-        // deleteAll test
+        function test_deleteAll()
+        {
+            //Arrange
+            // Make a Patron
+            $name = "Dan Brown";
+            $phone = "3";
+            $email = "a@a.com";
+            $test_patron = new Patron($name, $phone, $email);
+            $test_patron->save();
+
+            // Make a Checkout and save
+            $patron_id = $test_patron->getId();
+            $copy_id = 1;
+            $due_date = "2015-08-09";
+            $test_checkout = new Checkout($patron_id, $copy_id, $due_date);
+            $test_checkout->save();
+
+            // Make a 2nd Checkout and save under the same patron
+            $copy_id2 = 1;
+            $due_date2 = "2015-08-09";
+            $test_checkout2 = new Checkout($patron_id, $copy_id2, $due_date2);
+            $test_checkout2->save();
+
+            //Act
+            Checkout::deleteAll();
+
+
+            //Assert
+            $result = Checkout::getAll();
+            $this->assertEquals([], $result);
+        }
+
+
 
         // updatePatronId test
 
