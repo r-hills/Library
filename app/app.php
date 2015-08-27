@@ -81,5 +81,26 @@
         return $app['twig']->render("book_search_results.html.twig", array('results' => $matching_books));
     });
 
+    $app->post("/book_author_search_results", function() use ($app) {
+        $user_query = $_POST['author'];
+        $all_authors = Author::getAll();
+        $matching_authors = array();
+        foreach ($all_authors as $author) {
+            if (strpos(strtolower($author->getName()), strtolower($user_query)) !== false)  {
+                array_push($matching_authors, $author);
+            }
+        }
+
+        $author_book_search_results = array();
+        foreach ($matching_authors as $author) {
+            $matching_author_books = $author->getBooks();
+            foreach ($matching_author_books as $book) {
+                array_push($author_book_search_results, $book);
+            }
+        }
+
+        return $app['twig']->render("author_search_results.html.twig", array('results' => $author_book_search_results));
+    });
+
     return $app;
 ?>

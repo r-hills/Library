@@ -9,8 +9,15 @@
             <p>Search the Peterson Private Collection</p>
 
             <form action="/book_title_search_results" method="post">
-                <label for="title">Book Title</label>
+                <label for="title">Search by title:</label>
                 <input id="title" name="title" type="text">
+
+                <button type="submit">Search</button>
+            </form>
+
+            <form action="/book_author_search_results" method="post">
+                <label for="author">Search by author:</label>
+                <input id="author" name="author" type="text">
 
                 <button type="submit">Search</button>
             </form>
