@@ -42,11 +42,17 @@
     });
 
     //route adds book to inventory on same page
-    $app->post("/librarian", function() use ($app) {
+    $app->post("/add_book", function() use ($app) {
         $book = new Book(preg_quote($_POST['title'], "'"));
         $book->save();
         $author = new Author(preg_quote($_POST['author'], "'"));
         $author->save();
+        return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
+    });
+
+    //deletes all books and returns to librarian page
+    $app->post("/delete_all_books", function() use ($app) {
+        Book::deleteAll();
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
     });
 

@@ -8,7 +8,7 @@
             <h1>Librarian Homepage</h1>
             <p>Add a book to the Peterson Private Collection<p>
 
-            <form action="/librarian" method="post">
+            <form action="/add_book" method="post">
                 <label for="title">Book title</label>
                 <input id="title" name="title" type="text" required>
 
@@ -23,9 +23,12 @@
                 <ul>
                     {% for book in books %}
                         <li>{{ book.getTitle }} by
+
+                            <!-- struggling to get book authors to display on page -->
+
                             {% set book_authors = book.getAuthors %}
                             {% for author in book_authors %}
-                                {{ author }}
+                                {{ author.getName }}
                             {% endfor %}
                         </li>
                     {% endfor %}
