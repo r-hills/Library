@@ -23,9 +23,6 @@
                 <ul>
                     {% for book in books %}
                         <li>{{ book.getTitle }} by
-
-                            <!-- struggling to get book authors to display on page -->
-
                             {% set book_authors = book.getAuthors %}
                             {% for author in book_authors %}
                                 {{ author.getName }}

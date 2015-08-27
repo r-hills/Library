@@ -29,15 +29,6 @@
     //route to librarian landing page that displays all books, a form
     //to add books, search, update, and delete books.
     $app->get("/librarian", function() use ($app) {
-
-        //might not need to do all dis bizness if we can call
-        // book.getAuthors in twig
-        // $all_books = Book::getAll();
-        // $list_of_books = array();
-        // foreach ($all_books as $book) {
-        //     $book_with_author = $book->getAuthors();
-        //     array_push($list_of_books, $book_with_author);
-        // }
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
     });
 
@@ -47,6 +38,7 @@
         $book->save();
         $author = new Author(preg_quote($_POST['author'], "'"));
         $author->save();
+        $book->addAuthor($author);
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
     });
 
