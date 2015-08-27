@@ -2,8 +2,8 @@
 
     class Author
     {
-        private $title;
         private $name;
+        private $id;
 
         function __construct($name, $id = null)
         {

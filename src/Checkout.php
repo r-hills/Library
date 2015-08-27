@@ -4,14 +4,14 @@
     {
         private $patron_id;
         private $copy_id;
-        private $date;
+        private $due_date;
         private $id;
 
-        function __construct($patron_id, $copy_id, $date, $id = null)
+        function __construct($patron_id, $copy_id, $due_date, $id = null)
         {
             $this->patron_id = (int) $patron_id;
             $this->copy_id = (int) $copy_id;
-            $this->date = (string) $date;
+            $this->due_date = (string) $due_date;
             $this->id = $id;
         }
 
@@ -37,14 +37,14 @@
             return $this->copy_id;
         }
 
-        function setDate ($new_date)
+        function setDueDate ($new_due_date)
         {
-            $this->date = $new_date;
+            $this->due_date = $new_due_date;
         }
 
-        function getDate ()
+        function getDueDate ()
         {
-            return $this->date;
+            return $this->due_date;
         }
 
         function getId ()
@@ -58,11 +58,10 @@
         function save ()
         {
             try {
-                // date may be a protected keyword in MySQL/PHP... this isn't working right now
-                $GLOBALS['DB']->exec("INSERT INTO checkouts (patron_id, copy_id, date) VALUES (
+                $GLOBALS['DB']->exec("INSERT INTO checkouts (patron_id, copy_id, due_date) VALUES (
                     {$this->getPatronId()},
                     {$this->getCopyId()},
-                    '{$this->getDate()}');
+                    '{$this->getDueDate()}');
                 ");
                 $this->id = $GLOBALS['DB']->lastInsertId();
             } catch (PDOException $e) {
@@ -88,10 +87,10 @@
             $this->setCopyId($new_copy_id);
         }
 
-        function updateDate ($new_date)
+        function updateDueDate ($new_due_date)
         {
-            $GLOBALS['DB']->exec("UPDATE checkouts SET date = {$new_date} WHERE id = {$this->getId()};");
-            $this->setDate($new_date);
+            $GLOBALS['DB']->exec("UPDATE checkouts SET due_date = {$new_due_date} WHERE id = {$this->getId()};");
+            $this->setDueDate($new_due_date);
         }
 
         static function deleteAll ()
@@ -111,7 +110,8 @@
                 $new_checkout = new Checkout(
                     $checkout['patron_id'],
                     $checkout['copy_id'],
-                    $checkout['date']
+                    $checkout['due_date'],
+                    $checkout['id']
                 );
                 array_push($all_checkouts, $new_checkout);
             }

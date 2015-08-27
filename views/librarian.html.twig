@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+        <title>Library</title>
+    </head>
+    <body>
+        <div class='container'>
+            <h1>Librarian Homepage</h1>
+            <p>Search the Peterson Private Collection</p>
+
+            <form action="/book_title_search_results" method="post">
+                <label for="title">Search by title:</label>
+                <input id="title" name="title" type="text">
+
+                <button type="submit">Search</button>
+            </form>
+
+            <form action="/book_author_search_results" method="post">
+                <label for="author">Search by author:</label>
+                <input id="author" name="author" type="text">
+
+                <button type="submit">Search</button>
+            </form>
+
+            <p>Add a book to the Peterson Private Collection<p>
+
+            <form action="/add_book" method="post">
+                <label for="title">Book title</label>
+                <input id="title" name="title" type="text" required>
+
+                <label for="author">Book author(s)*:</label>
+                <input id="author" name="author" type="text" required>
+
+                <button type="submit">Add book</button>
+                <p>*For multiple authors, please separate names by a comma and a space.</p>
+            </form>
+
+            {% if books is not empty %}
+                <p>Here are all your books</p>
+                <ul>
+                    {% for book in books %}
+                        <li><a href="/book/{{ book.getId }}/edit">{{ book.getTitle }}</a> by
+                            {% set book_authors = book.getAuthors %}
+                            {% for author in book_authors %}
+                                {{ author.getName }}
+                            {% endfor %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You haven't added any books yet</p>
+            {% endif %}
+
+            <form action="/delete_all_books" method="post">
+                <button type="submit" class="btn-danger">Clear the Collection</button>
+            </form>
+        </div>
+    </body>
+</html>

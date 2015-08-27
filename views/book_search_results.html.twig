@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+        <title>Book Search Results</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Here's those dumb books you wanted or whatever</h1>
+
+            {% for book in results %}
+                <ul>
+                    <li>{{ book.getTitle }} by
+                        {% set book_authors = book.getAuthors %}
+                        {% for author in book_authors %}
+                            {{ author.getName }}
+                        {% endfor %}
+                    </li>
+                </ul>
+            {% endfor %}
+
+            <p>Get <a href="/librarian">back</a> to work!</p>
+        </div>
+    </body>
+</html>
