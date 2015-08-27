@@ -21,7 +21,7 @@
 
     //Root routes
     //homepage with option to go to a librarian or a patron page
-    $app->get("/", function(), use ($app) {
+    $app->get("/", function() use ($app) {
         return $app['twig']->render('index.html.twig');
 
     });
