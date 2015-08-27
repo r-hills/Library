@@ -54,5 +54,12 @@
         return $app['twig']->render('book_edit.html.twig', array('book' => $book));
     });
 
+    //update a book name and return to the librarian route
+    $app->patch("/book/{id}", function($id) use ($app) {
+        $book = Book::find($id);
+        $book->updateTitle($_POST['title']);
+        return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
+    });
+
     return $app;
 ?>
