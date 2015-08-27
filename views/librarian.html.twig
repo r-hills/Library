@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+        <title>Library</title>
+    </head>
+    <body>
+        <div class='container'>
+            <h1>Librarian Homepage</h1>
+            <p>Add a book to the Peterson Private Collection<p>
+
+            <form action="/librarian" method="post">
+                <label for="title">Book title</label>
+                <input id="title" name="title" type="text">
+
+                <label for="author">Book author:</label>
+                <input id="author" name="author" type="text">
+
+                <button type="submit">Add book</button>
+            </form>
+
+            {% if books is not empty %}
+                <p>Here are all your books</p>
+                <ul>
+                    {% for book in books %}
+                        <li>{{ book.getTitle }} by {{ book.getAuthors }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You haven't added any books yet</p>
+            {% endif %}
+
+            <form action="/delete_all_books" method="post">
+                <button type="submit" class="btn-danger">Clear the Collection</button>
+            </form>
+        </div>
+    </body>
+</html>
