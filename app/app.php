@@ -23,7 +23,6 @@
     //homepage with option to go to a librarian or a patron page
     $app->get("/", function() use ($app) {
         return $app['twig']->render('index.html.twig');
-
     });
 
     //librarian landing page that displays all books, a form
@@ -37,14 +36,14 @@
         $book = new Book(preg_quote($_POST['title'], "'"));
         $book->save();
 
+        //this will actually make multiple author entry names "Name,"
         $authors = $_POST['author'];
-        $authors_array = explode(", ", $authors);
+        $authors_array = explode(" ", $authors);
         foreach ($authors_array  as $author) {
             $new_author = new Author($author);
             $new_author->save();
             $book->addAuthor($new_author);
         }
-
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
     });
 
@@ -96,7 +95,6 @@
                 array_push($matching_authors, $author);
             }
         }
-
         $author_book_search_results = array();
         foreach ($matching_authors as $author) {
             $matching_author_books = $author->getBooks();
@@ -104,7 +102,6 @@
                 array_push($author_book_search_results, $book);
             }
         }
-
         return $app['twig']->render("author_search_results.html.twig", array('results' => $author_book_search_results));
     });
 
