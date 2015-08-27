@@ -36,9 +36,15 @@
     $app->post("/add_book", function() use ($app) {
         $book = new Book(preg_quote($_POST['title'], "'"));
         $book->save();
-        $author = new Author(preg_quote($_POST['author'], "'"));
-        $author->save();
-        $book->addAuthor($author);
+
+        $authors = $_POST['author'];
+        $authors_array = explode(", ", $authors);
+        foreach ($authors_array  as $author) {
+            $new_author = new Author($author);
+            $new_author->save();
+            $book->addAuthor($new_author);
+        }
+
         return $app['twig']->render('librarian.html.twig', array('books' => Book::getAll()));
     });
 

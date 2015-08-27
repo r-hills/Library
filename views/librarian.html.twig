@@ -28,10 +28,11 @@
                 <label for="title">Book title</label>
                 <input id="title" name="title" type="text" required>
 
-                <label for="author">Book author:</label>
+                <label for="author">Book author(s)*:</label>
                 <input id="author" name="author" type="text" required>
 
                 <button type="submit">Add book</button>
+                <p>*For multiple authors, please separate names by a comma and a space.</p>
             </form>
 
             {% if books is not empty %}
