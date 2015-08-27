@@ -110,7 +110,8 @@
                 $new_checkout = new Checkout(
                     $checkout['patron_id'],
                     $checkout['copy_id'],
-                    $checkout['due_date']
+                    $checkout['due_date'],
+                    $checkout['id']
                 );
                 array_push($all_checkouts, $new_checkout);
             }
